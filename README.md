@@ -2,6 +2,8 @@
 
 An engine for Half-Life (Metamod) servers that allows writing full-fledged plugins and modifications in Lua. It provides direct access to the internal game API (Game DLL), entity manipulation, visual effects, and network messages.
 
+You need to compile plugin and luajit alone
+
 ## Features
 
 * **Hot Reloading:** The `lua_reload` command updates all scripts on the fly without the need to restart the server.
