@@ -75,6 +75,8 @@ private:
 	static int API_EmitSound(lua_State* L);
 	static int API_PrecacheSound(lua_State* L);
 	static int API_PrecacheModel(lua_State* L);
+	static int API_GetPlayerButtons(lua_State* L);
+	static int API_GetPlayerVelocity(lua_State* L);
 
 	lua_State* m_L = nullptr;
 	std::string m_BaseDir;

@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/msvc/.vs
+/msvc/Debug
+/msvc/Lua_metamod
+/msvc/Release

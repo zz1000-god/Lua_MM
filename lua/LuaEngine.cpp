@@ -288,6 +288,8 @@ void CLuaEngine::RegisterAPI()
 	lua_register(m_L, "EmitSound", API_EmitSound);
 	lua_register(m_L, "PrecacheSound", API_PrecacheSound);
 	lua_register(m_L, "PrecacheModel", API_PrecacheModel);
+	lua_register(m_L, "GetPlayerButtons", API_GetPlayerButtons);
+	lua_register(m_L, "GetPlayerVelocity", API_GetPlayerVelocity);
 }
 
 // =========================================================================
@@ -956,4 +958,33 @@ int CLuaEngine::API_PrecacheModel(lua_State* L)
 	const char* model = luaL_checkstring(L, 1);
 	g_engfuncs.pfnPrecacheModel((char*)model);
 	return 0;
+}
+
+int CLuaEngine::API_GetPlayerButtons(lua_State* L)
+{
+	int id = luaL_checkinteger(L, 1);
+	edict_t* pEnt = INDEXENT(id);
+	if (pEnt && !FNullEnt(pEnt) && (pEnt->v.flags & FL_CLIENT)) {
+		lua_pushinteger(L, pEnt->v.button);
+	}
+	else {
+		lua_pushinteger(L, 0);
+	}
+	return 1;
+}
+
+int CLuaEngine::API_GetPlayerVelocity(lua_State* L)
+{
+	int id = luaL_checkinteger(L, 1);
+	edict_t* pEnt = INDEXENT(id);
+	if (pEnt && !FNullEnt(pEnt) && (pEnt->v.flags & FL_CLIENT)) {
+		lua_pushnumber(L, pEnt->v.velocity.x);
+		lua_pushnumber(L, pEnt->v.velocity.y);
+		lua_pushnumber(L, pEnt->v.velocity.z);
+		return 3;
+	}
+	lua_pushnumber(L, 0.0);
+	lua_pushnumber(L, 0.0);
+	lua_pushnumber(L, 0.0);
+	return 3;
 }
